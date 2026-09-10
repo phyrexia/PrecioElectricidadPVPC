@@ -1,363 +1,128 @@
-# 🔌 Sistema de Precios PVPC - ESIOS
+<div align="center">
+  <img src=".github/quantum-hero.png" alt="Quantum AI Foundry" width="100%"/>
+</div>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
 
 <div align="center">
 
-[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![ESIOS API](https://img.shields.io/badge/API-ESIOS-orange.svg)](https://www.esios.ree.es/es/pagina/api)
-[![Code style](https://img.shields.io/badge/code%20style-clean-brightgreen.svg)]()
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:120024,50:4c1d95,100:7c3aed&height=210&section=header&text=PrecioElectricidadPVPC&fontSize=52&fontColor=ffffff&fontAlignY=38&desc=Consulta%2C%20almacena%20y%20visualiza%20precios%20PVPC%20de%20la%20luz%20%28ESIOS%29&descSize=20&descAlignY=60" alt="PrecioElectricidadPVPC" width="100%"/>
 
-Sistema completo para consultar, almacenar y visualizar precios del **Precio Voluntario para el Pequeño Consumidor (PVPC)** utilizando la API de ESIOS (Red Eléctrica de España).
+### Python · ESIOS · gráficos · backfill
 
-[Características](#-características) •
-[Instalación](#-instalación) •
-[Uso](#-uso) •
-[Gráficos](#-gráficos) •
-[Estructura](#-estructura-del-proyecto) •
-[Licencia](#-licencia)
+<br/>
+
+<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/ESIOS-7c3aed?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/open-source-16a34a?style=for-the-badge"/>
+
+<a href="#precioelectricidadpvpc">
+<img src="https://img.shields.io/badge/⚡%20Powered%20by-QUANTUM-7c3aed?style=for-the-badge&labelColor=120024"/>
+</a>
+
+<br/><br/>
+
+<img src="https://skillicons.dev/icons?i=py,github,git,md&theme=dark" alt="stack"/>
+
+</div>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+
+---
+
+## ⚡ Mantenido y evolucionado por **Quantum**
+
+> **PrecioElectricidadPVPC** es un sistema completo para consultar, almacenar y visualizar los precios PVPC de la electricidad (ESIOS) en España.
+
+<div align="center">
+
+`ESIOS &nbsp;→&nbsp; consulta &nbsp;→&nbsp; almacenamiento &nbsp;→&nbsp; **gráficos**` ⚡
 
 </div>
 
 ---
 
-## 📸 Capturas
+## 🚕 ¿Qué es?
 
-### Gráfico de Evolución (7 días)
-![Evolución 7 días](docs/images/evolucion_7dias.png)
+**PrecioElectricidadPVPC** (repo `PrecioElectricidadPVPC`) consulta los precios PVPC de la luz desde ESIOS, los almacena y genera visualizaciones. Es un proyecto open-source (Python) popular.
 
-### Gráfico del Día (Por Hora)
-![Precios del día](docs/images/precios_dia.png)
+## ✨ ¿Qué hace?
 
----
+| | Área | Qué resuelve |
+|:--:|------|--------------|
+| 🔌 | **Consulta** | Precios PVPC desde ESIOS. |
+| 💾 | **Almacenamiento** | Persistencia de precios. |
+| 📈 | **Gráficos** | Visualización de precios. |
+| ⏪ | **Backfill** | `backfill.py` rellena histórico. |
 
-## 🚀 Características
+## 🏗️ Cómo está construido
 
-- ✅ **Consulta en tiempo real** - Obtiene precios PVPC del día actual desde la API de ESIOS
-- ✅ **Base de datos SQLite** - Almacenamiento local optimizado con índices
-- ✅ **Clasificación por tramos** - Divide automáticamente en 3 tramos de color:
-  - 🟢 **Verde**: Las 8 horas más baratas del día
-  - 🟡 **Amarillo**: Las 8 horas con precios intermedios
-  - 🔴 **Rojo**: Las 8 horas más caras del día
-- ✅ **Datos históricos** - Descarga y almacena precios de cualquier fecha pasada
-- ✅ **Visualización avanzada** - Gráficos interactivos con Matplotlib
-- ✅ **Estadísticas detalladas** - Precio mínimo, máximo y medio
-- ✅ **Terminal visual** - Salida colorizada con emojis
+ESIOS → consulta → almacenamiento → gráficos:
 
----
-
-## 📋 Requisitos
-
-- **Python 3.7+**
-- **Clave API de ESIOS** - [Obtener aquí](https://www.esios.ree.es/es/pagina/api) (gratuita)
-
----
-
-## 🔧 Instalación
-
-### 1. Clonar el repositorio
-
-```bash
-git clone https://github.com/tu-usuario/PrecioElectricidadPVPC.git
-cd PrecioElectricidadPVPC
+```mermaid
+flowchart LR
+    ESIOS["🔌 ESIOS"] --> CONS["consultar.py"]
+    CONS --> STORE[("💾 datos")]
+    STORE --> GRAF["📈 graficar.py"]
+    BACK["⏪ backfill.py"] --> STORE
+    classDef q fill:#4c1d95,stroke:#7c3aed,color:#fff;
+    classDef d fill:#120024,stroke:#7c3aed,color:#fff;
+    classDef g fill:#16a34a,stroke:#065f46,color:#fff;
+    class CONS q; class STORE d; class ESIOS,GRAF,BACK g;
 ```
 
-### 2. Crear y activar entorno virtual
+**Stack**
 
-```bash
-python3 -m venv venv
+- **Lenguaje** — Python.
+- **Fuente** — ESIOS (PVPC).
 
-# En Linux/macOS
-source venv/bin/activate
+## 📂 Estructura del repositorio
 
-# En Windows
-venv\Scripts\activate
+| Ruta | Contenido |
+|------|-----------|
+| `consultar.py · backfill.py · graficar.py · main.py` | CLI principal. |
+| `src/` | Lógica. |
+| `docs/` | Documentación. |
+
+## 🔗 Integraciones
+
+- **ESIOS** — API de precios PVPC.
+
+## 🚀 Entornos y despliegue
+
+- Local / cron para consultas y backfill.
+
+## 💜 Lo que Quantum ha aportado
+
+<div align="center">
+
+| | | |
+|:--:|:--:|:--:|
+| 🔌 **Consulta** | 📈 **Visualización** |
+| ESIOS PVPC,<br/>backfill | Gráficos |
+
+</div>
+
+## 🌟 Hacia dónde va
+
+```mermaid
+flowchart LR
+    A["🔌 Consulta"] --> B["📈 Visualización"]
+    B --> C["✨ Sistema<br/>completo"]
+    classDef done fill:#16a34a,stroke:#065f46,color:#fff;
+    classDef now fill:#7c3aed,stroke:#4c1d95,color:#fff;
+    classDef next fill:#120024,stroke:#7c3aed,color:#fff;
+    class A done; class B now; class C next;
 ```
 
-### 3. Instalar dependencias
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Configurar API Key
-
-Copia el archivo de ejemplo y añade tu clave API:
-
-```bash
-cp .env.example .env
-# Edita .env y añade tu clave API de ESIOS
-```
-
-El archivo `.env` debe contener:
-```env
-ESIOS_API_KEY=tu_clave_api_aqui
-```
-
----
-
-## 💻 Uso
-
-### 📅 Obtener precios del día actual
-
-```bash
-python main.py
-```
-
-**Salida de ejemplo:**
-```
-🔌 Conectando con API de ESIOS...
-📅 Obteniendo precios para 19/02/2026
-
-⏳ Consultando API...
-✅ Recibidos 24 precios
-💾 Guardando en base de datos...
-✅ Guardados 24 registros
-
-Precios PVPC - 19/02/2026
-══════════════════════════════════════════════════
-Hora  │ Precio (€/kWh) │ Tramo
-──────┼────────────────┼───────────
-00-01 │  0.07081       │ 🟢 verde
-01-02 │  0.07127       │ 🟢 verde
-...
-20-21 │  0.25909       │ 🔴 rojo
-21-22 │  0.23805       │ 🔴 rojo
-══════════════════════════════════════════════════
-💚 Hora más barata: 06-07 → 0.07009 €/kWh
-🔴 Hora más cara:   20-21 → 0.25909 €/kWh
-📊 Precio medio:    0.12749 €/kWh
-```
-
-### 🔍 Consultar datos históricos (ya descargados)
-
-```bash
-# Consultar una fecha específica
-python consultar.py 2025-11-03
-
-# Consultar hoy (por defecto)
-python consultar.py
-```
-
-### ⏳ Descargar datos históricos
-
-```bash
-# Rellenar desde una fecha hasta hoy
-python backfill.py --start 2024-01-01
-
-# Rellenar un rango específico (ej: últimos 3 meses)
-python backfill.py --start 2025-11-01 --end 2025-11-30
-
-# Rellenar todo un año
-python backfill.py --start 2024-01-01 --end 2024-12-31
-
-# Forzar actualización de fechas existentes
-python backfill.py --start 2024-01-01 --force
-```
-
-**Salida de ejemplo:**
-```
-📅 Rellenando datos históricos
-   Desde: 01/11/2025
-   Hasta: 30/11/2025
-
-⏳ 01/11/2025 - consultando API... ✅ guardados 24 registros
-⏳ 02/11/2025 - consultando API... ✅ guardados 24 registros
-...
-══════════════════════════════════════════════════
-Resumen del backfill:
-  Total de días:      30
-  ✅ Procesados:      30
-  ⏭️  Saltados:        0
-  ❌ Errores:         0
-══════════════════════════════════════════════════
-```
-
----
-
-## 📊 Gráficos
-
-### Gráfico de evolución (últimos N días)
-
-```bash
-# Evolución de los últimos 30 días (por defecto)
-python graficar.py --tipo evolucion
-
-# Evolución de los últimos 7 días
-python graficar.py --tipo evolucion --dias 7
-
-# Guardar en archivo
-python graficar.py --tipo evolucion --dias 30 --guardar evolucion.png
-```
-
-### Gráfico de barras por hora (día específico)
-
-```bash
-# Gráfico del día de hoy
-python graficar.py --tipo dia
-
-# Gráfico de una fecha específica
-python graficar.py --tipo dia --fecha 2025-11-03
-
-# Guardar en archivo
-python graficar.py --tipo dia --guardar precios_hoy.png
-```
-
----
-
-## 📊 Tramos de Color
-
-Los precios se clasifican automáticamente en **3 tramos** basándose en el precio relativo del día:
-
-| Tramo | Color | Descripción | Horas |
-|-------|-------|-------------|-------|
-| 🟢 **Verde** | `#4CAF50` | Las horas más baratas | 8 horas |
-| 🟡 **Amarillo** | `#FFC107` | Horas con precio intermedio | 8 horas |
-| 🔴 **Rojo** | `#F44336` | Las horas más caras | 8 horas |
-
-Esta clasificación te ayuda a identificar rápidamente cuándo es más económico consumir electricidad.
-
----
-
-## 🗄️ Base de Datos
-
-Los datos se almacenan en **`pvpc.db`** (SQLite) con la siguiente estructura:
-
-```sql
-CREATE TABLE precios_pvpc (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    fecha DATE NOT NULL,
-    hora INTEGER NOT NULL,
-    precio REAL NOT NULL,
-    tramo TEXT,  -- 'verde', 'amarillo', 'rojo'
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE(fecha, hora)
-);
-
-CREATE INDEX idx_fecha ON precios_pvpc(fecha);
-```
-
-- **Clave única** en `(fecha, hora)` para evitar duplicados
-- **Índice** en `fecha` para búsquedas rápidas
-- **Soporte UPSERT** para actualizar precios si es necesario
-
----
-
-## 📁 Estructura del Proyecto
-
-```
-PrecioElectricidadPVPC/
-├── 📄 .env                     # API key (no se sube a git)
-├── 📄 .env.example             # Ejemplo de configuración
-├── 📄 .gitignore
-├── 📄 requirements.txt         # Dependencias Python
-├── 📄 LICENSE                  # Licencia MIT
-├── 📄 README.md
-│
-├── 🐍 main.py                  # Script principal (precios de hoy)
-├── 🐍 consultar.py             # Consultar históricos desde BD
-├── 🐍 backfill.py              # Descargar históricos desde API
-├── 🐍 graficar.py              # Generar gráficos
-│
-├── 📁 src/
-│   ├── __init__.py
-│   ├── client.py               # Cliente API ESIOS
-│   ├── database.py             # Gestión SQLite
-│   ├── indicators.py           # Constantes de indicadores
-│   └── models.py               # Modelos y procesamiento
-│
-├── 📁 docs/
-│   └── 📁 images/              # Screenshots para README
-│       ├── evolucion_7dias.png
-│       └── precios_dia.png
-│
-└── 📁 venv/                    # Entorno virtual (no en git)
-```
-
----
-
-## 🔑 API de ESIOS
-
-Este proyecto utiliza la **API de ESIOS v2** de Red Eléctrica de España:
-
-- **Base URL**: `https://api.esios.ree.es`
-- **Documentación**: [esios.ree.es/es/pagina/api](https://www.esios.ree.es/es/pagina/api)
-- **Autenticación**: Clave API (header `x-api-key`)
-- **Indicador PVPC**: ID `1001` (Término de facturación de energía activa del PVPC 2.0TD)
-
-### Geografías Disponibles
-
-- 🗺️ **Península** (geo_id: 8741) - *Por defecto*
-- 🏝️ Canarias (geo_id: 8742)
-- 🏝️ Baleares (geo_id: 8743)
-- 🏙️ Ceuta (geo_id: 8744)
-- 🏙️ Melilla (geo_id: 8745)
-
----
-
-## 🛠️ Tecnologías
-
-- **Python 3.7+** - Lenguaje de programación
-- **requests** - Peticiones HTTP a la API
-- **python-dotenv** - Gestión de variables de entorno
-- **matplotlib** - Generación de gráficos
-- **SQLite** - Base de datos local
-
----
-
-## 🤝 Contribuir
-
-Las contribuciones son bienvenidas! Si quieres mejorar este proyecto:
-
-1. Fork el repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
----
-
-## 📝 TODO / Roadmap
-
-- [ ] API REST para servir datos
-- [ ] Dashboard web interactivo
-- [ ] Notificaciones cuando el precio baje de un umbral
-- [ ] Exportación a CSV/Excel
-- [ ] Integración con Home Assistant
-- [ ] Predicción de precios con ML
-
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
-
----
-
-## ⚠️ Disclaimer
-
-Este proyecto es **independiente** y no está afiliado con Red Eléctrica de España (REE).
-
-Los datos son proporcionados por ESIOS bajo su licencia de uso. Este software se proporciona "tal cual", sin garantías de ningún tipo.
-
----
-
-## 👤 Autor
-
-Creado con ❤️ para ayudar a los consumidores a entender y optimizar su consumo eléctrico.
-
----
-
-## 🌟 ¿Te resulta útil?
-
-Si este proyecto te ha sido útil, considera:
-- ⭐ Darle una estrella en GitHub
-- 🐛 Reportar bugs o sugerir mejoras
-- 🔄 Compartirlo con otros
+- Dashboard web.
 
 ---
 
 <div align="center">
 
-**[⬆ Volver arriba](#-sistema-de-precios-pvpc---esios)**
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:7c3aed,50:4c1d95,100:120024&height=120&section=footer&text=Cuidado%20y%20llevado%20al%20siguiente%20nivel%20por%20Quantum&fontSize=20&fontColor=ffffff&fontAlignY=70" alt="Quantum" width="100%"/>
+
+**PrecioElectricidadPVPC** — precios de la luz, hechos crecer por **Quantum** ⚡
 
 </div>
